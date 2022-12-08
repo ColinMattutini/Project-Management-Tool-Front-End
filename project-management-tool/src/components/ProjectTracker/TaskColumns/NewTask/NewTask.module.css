@@ -1,0 +1,14 @@
+.alignment {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.buttonSizer {
+  display: flex;
+  justify-content: flex-end;
+}
