@@ -1,0 +1,24 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+  gap: 8px;
+}
+
+.textbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column .textbox button {
+  max-height: 70%;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  border-radius: 50%;
+}
+
+.textbox button:hover {
+  cursor: pointer;
+}
