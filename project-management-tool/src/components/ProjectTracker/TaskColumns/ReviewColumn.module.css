@@ -1,0 +1,10 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+  gap: 8px;
+}
+
+.column h1 {
+  text-align: center;
+}
