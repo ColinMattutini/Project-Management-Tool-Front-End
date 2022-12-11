@@ -86,6 +86,8 @@ const IndividualTask = (props) => {
           ))}
         </TextField>
         <Autocomplete
+          value={assignedTo}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           disablePortal
           id="combo-box-demo"
           options={users}
@@ -93,6 +95,7 @@ const IndividualTask = (props) => {
           onInputChange={(event, newInputValue) => {
             setAssignedTo(newInputValue);
           }}
+          inputValue={assignedTo}
           renderInput={(params) => (
             <TextField
               {...params}
