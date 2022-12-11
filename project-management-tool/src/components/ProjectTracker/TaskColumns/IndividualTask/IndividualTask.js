@@ -90,6 +90,9 @@ const IndividualTask = (props) => {
           id="combo-box-demo"
           options={users}
           sx={{ width: 300 }}
+          onInputChange={(event, newInputValue) => {
+            setAssignedTo(newInputValue);
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
