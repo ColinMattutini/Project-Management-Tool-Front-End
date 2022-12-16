@@ -47,6 +47,7 @@ const users = [
 const IndividualTask = (props) => {
   const [priority, setPriority] = useState(props.taskType);
   const [taskName, setTaskName] = useState(props.taskName);
+  const [additionalInfo, setAdditionalInfo] = useState(props.additionalInfo);
   const [assignedTo, setAssignedTo] = useState(props.assignedTo);
 
   const handleChange = (event) => {
@@ -60,6 +61,7 @@ const IndividualTask = (props) => {
   const submitUpdateTask = (e) => {
     e.preventDefault();
     console.log(priority, taskName, assignedTo);
+    props.taskModalHandler();
   };
 
   const assignedHandler = (e) => {
@@ -71,7 +73,7 @@ const IndividualTask = (props) => {
       <form className={classes.alignment}>
         <h1>Task Name</h1>
         <input value={taskName} onChange={taskNameHandler}></input>
-        <input placeholder="Additional Information"></input>
+        <input value={additionalInfo}></input>
         <TextField
           id="outlined-select-priority"
           select
@@ -111,7 +113,7 @@ const IndividualTask = (props) => {
             color="success"
             onClick={submitUpdateTask}
           >
-            Save Task
+            Update Task
           </Button>
         </div>
       </form>

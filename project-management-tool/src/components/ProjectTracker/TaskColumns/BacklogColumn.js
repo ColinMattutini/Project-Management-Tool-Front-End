@@ -12,7 +12,7 @@ const backlogItems = [
     taskName: "test",
     taskType: "Moderate",
     dateCreated: "12/07/2022",
-    assignedTo: "TestUser",
+    assignedTo: "Test User",
     status: "Backlog",
   },
   {
@@ -21,7 +21,7 @@ const backlogItems = [
     taskName: "Luke Skywalker",
     taskType: "Low",
     dateCreated: "12/07/2022",
-    assignedTo: "TestUser",
+    assignedTo: "Test User",
     status: "Backlog",
   },
   {
@@ -30,7 +30,7 @@ const backlogItems = [
     taskName: "Add favorite topics section",
     taskType: "Low",
     dateCreated: "12/07/2022",
-    assignedTo: "TestUser",
+    assignedTo: "Jack Sparrow",
     status: "Backlog",
   },
   {
@@ -39,7 +39,7 @@ const backlogItems = [
     taskName: "Fix search bar dropdowns",
     taskType: "Low",
     dateCreated: "12/07/2022",
-    assignedTo: "TestUser",
+    assignedTo: "Test User",
     status: "Backlog",
   },
 ];
@@ -53,18 +53,19 @@ const BacklogColumn = (props) => {
     console.log(props.project);
   };
 
-  const newBackLogItems = backlogItems.filter((e) =>
-    e.projectId.includes(props.project)
-  );
-  const backlogTasks = newBackLogItems.map((backlogItems) => (
+  // const newBackLogItems = backlogItems.filter((e) =>
+  //   e.projectId.includes(props.project)
+  // );
+  const backlogTasks = props.backlogTasks.map((backlogItems) => (
     <TaskCard
-      key={backlogItems.postId}
+      key={backlogItems.taskId}
       projectId={backlogItems.projectId}
       taskName={backlogItems.taskName}
-      taskType={backlogItems.taskType}
+      additionalInfo={backlogItems.additionalInfo}
+      taskType={backlogItems.priority}
       dateCreated={backlogItems.dateCreated}
       assignedTo={backlogItems.assignedTo}
-      status={backlogItems.status}
+      status={backlogItems.category}
     />
   ));
 
