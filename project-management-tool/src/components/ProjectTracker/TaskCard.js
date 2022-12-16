@@ -19,6 +19,7 @@ const TaskCard = (props) => {
         <IndividualTask
           taskModalHandler={taskModalHandler}
           taskName={props.taskName}
+          additionalInfo={props.additionalInfo}
           taskType={props.taskType}
           dateCreated={props.dateCreated}
           assignedTo={props.assignedTo}
