@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,7 +17,21 @@ const rows = [
   createData("Test", "Person", "Test User", 9),
 ];
 
-const MembersTable = () => {
+const MembersTable = (props) => {
+  const [users, setUsers] = useState([]);
+
+  const fetchUsers = async () => {
+    const response = await fetch("http://localhost:8080/api/users", {
+      method: "GET",
+    });
+    const data = await response.json();
+    setUsers(data);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 350 }} aria-label="simple table">
@@ -30,9 +44,9 @@ const MembersTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {users.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.userId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
