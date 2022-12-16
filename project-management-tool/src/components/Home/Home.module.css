@@ -1,0 +1,13 @@
+.column {
+  display: flex;
+  margin-left: 12%;
+  padding-right: 8%;
+  padding-top: 8%;
+}
+
+.column2 {
+  width: 100%;
+  height: 400px;
+  justify-content: center;
+  align-items: center;
+}
