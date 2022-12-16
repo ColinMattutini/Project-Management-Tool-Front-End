@@ -9,20 +9,20 @@ import { Button } from "@mui/material";
 
 const taskPriority = [
   {
-    value: "Low",
-    label: "Low",
+    value: "LOW",
+    label: "LOW",
   },
   {
-    value: "Moderate",
-    label: "Moderate",
+    value: "MODERATE",
+    label: "MODERATE",
   },
   {
-    value: "High",
-    label: "High",
+    value: "HIGH",
+    label: "HIGH",
   },
   {
-    value: "Urgent",
-    label: "Urgent",
+    value: "URGENT",
+    label: "URGENT",
   },
 ];
 
@@ -44,11 +44,31 @@ const users = [
   },
 ];
 
+const taskCategory = [
+  {
+    value: "BACKLOG",
+    label: "BACKLOG",
+  },
+  {
+    value: "INPROGRESS",
+    label: "INPROGRESS",
+  },
+  {
+    value: "REVIEW",
+    label: "REVIEW",
+  },
+  {
+    value: "COMPLETE",
+    label: "COMPLETE",
+  },
+];
+
 const IndividualTask = (props) => {
   const [priority, setPriority] = useState(props.taskType);
   const [taskName, setTaskName] = useState(props.taskName);
   const [additionalInfo, setAdditionalInfo] = useState(props.additionalInfo);
   const [assignedTo, setAssignedTo] = useState(props.assignedTo);
+  const [category, setCategory] = useState(props.category);
 
   const handleChange = (event) => {
     setPriority(event.target.value);
@@ -58,22 +78,52 @@ const IndividualTask = (props) => {
     setTaskName(e.target.value);
   };
 
+  const additionalInfoHandler = (event) => {
+    setAdditionalInfo(event.target.value);
+  };
+
+  const categoryHandler = (e) => {
+    setCategory(e.target.value);
+  };
+
   const submitUpdateTask = (e) => {
     e.preventDefault();
     console.log(priority, taskName, assignedTo);
+    updateTaskFetch();
     props.taskModalHandler();
   };
 
   const assignedHandler = (e) => {
     setAssignedTo(e.target.value);
   };
+
+  const updateTaskFetch = async () => {
+    const response = await fetch(
+      "http://localhost:8080/api/project/test/edittask",
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          taskId: props.taskId,
+          taskName: taskName,
+          additionalInfo: additionalInfo,
+          priority: priority,
+          assignedTo: assignedTo,
+          category: category,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  };
+
   return (
     <Modal>
       <button onClick={props.taskModalHandler}>X</button>
       <form className={classes.alignment}>
         <h1>Task Name</h1>
         <input value={taskName} onChange={taskNameHandler}></input>
-        <input value={additionalInfo}></input>
+        <input value={additionalInfo} onChange={additionalInfoHandler}></input>
         <TextField
           id="outlined-select-priority"
           select
@@ -107,6 +157,18 @@ const IndividualTask = (props) => {
             />
           )}
         />
+        <TextField
+          id="outlined-select-category"
+          select
+          value={category}
+          onChange={categoryHandler}
+        >
+          {taskCategory.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         <div className={classes.buttonSizer}>
           <Button
             variant="contained"
