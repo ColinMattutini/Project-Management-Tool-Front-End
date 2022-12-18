@@ -92,6 +92,7 @@ const Home = () => {
   );
 
   return (
+    //Responsive container used so chart can change size
     <div className={classes.column}>
       <div className={classes.column2}>
         <ResponsiveContainer>
