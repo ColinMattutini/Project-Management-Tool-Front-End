@@ -59,6 +59,7 @@ const BacklogColumn = (props) => {
   const backlogTasks = props.backlogTasks.map((backlogItems) => (
     <TaskCard
       key={backlogItems.taskId}
+      taskId={backlogItems.taskId}
       projectId={backlogItems.projectId}
       taskName={backlogItems.taskName}
       additionalInfo={backlogItems.additionalInfo}
