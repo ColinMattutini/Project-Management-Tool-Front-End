@@ -26,26 +26,7 @@ const taskPriority = [
   },
 ];
 
-const users = [
-  {
-    label: "Colin",
-  },
-  {
-    label: "Test User",
-  },
-  {
-    label: "Jack Sparrow",
-  },
-  {
-    label: "Luke Skywalker",
-  },
-  {
-    label: "Mahogany Teakwood",
-  },
-  {
-    label: "",
-  },
-];
+const users = JSON.parse(localStorage.getItem("users"));
 
 const taskCategory = [
   {

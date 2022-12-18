@@ -5,8 +5,31 @@ import MembersPage from "./Pages/MembersPage";
 import { Route, Routes } from "react-router-dom";
 import UserTasksPage from "./Pages/UserTasksPage";
 import HomePage from "./Pages/HomePage";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [users, setUsers] = useState([]);
+
+  const fetchMembers = async () => {
+    const response = await fetch("http://localhost:8080/api/users", {
+      method: "GET",
+    });
+    const data = await response.json();
+    const loadedUsers = [];
+    for (const userKey in data) {
+      loadedUsers.push({
+        label: data[userKey].fullName,
+      });
+    }
+    setUsers(loadedUsers);
+    localStorage.setItem("users", JSON.stringify(loadedUsers));
+  };
+
+  useEffect(() => {
+    fetchMembers();
+    console.log("app js fetch ran");
+  }, []);
+
   return (
     <div>
       <SideNavBar />

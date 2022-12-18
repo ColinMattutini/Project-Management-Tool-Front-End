@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Modal from "../../../UI/Modal";
 import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
@@ -26,24 +26,6 @@ const taskPriority = [
   },
 ];
 
-const users = [
-  {
-    label: "Colin",
-  },
-  {
-    label: "Test User",
-  },
-  {
-    label: "Jack Sparrow",
-  },
-  {
-    label: "Luke Skywalker",
-  },
-  {
-    label: "Mahogany Teakwood",
-  },
-];
-
 const taskCategory = [
   {
     value: "BACKLOG",
@@ -62,6 +44,8 @@ const taskCategory = [
     label: "COMPLETE",
   },
 ];
+
+const users = JSON.parse(localStorage.getItem("users"));
 
 const IndividualTask = (props) => {
   const [priority, setPriority] = useState(props.taskType);
