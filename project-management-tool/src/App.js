@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import UserTasksPage from "./Pages/UserTasksPage";
 import HomePage from "./Pages/HomePage";
 import { useEffect, useState } from "react";
+import NewProjectPage from "./Pages/NewProjectPage";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/Projects/:project" element={<ProjectDashboard />} />
         <Route exact path="/members" element={<MembersPage />} />
         <Route exact path="/usertasks" element={<UserTasksPage />} />
+        <Route exact path="/newproject" element={<NewProjectPage />} />
       </Routes>
     </div>
   );
