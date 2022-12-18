@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
@@ -19,11 +19,31 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import AddIcon from "@mui/icons-material/Add";
+import ProjectTabs from "./ProjectTabs";
 
 const drawerWidth = 180;
 
 const SideNavBar = () => {
   const nav = useNavigate();
+  const [projects, setProjects] = useState([]);
+
+  const fetchAllProjects = async () => {
+    const response = await fetch("http://localhost:8080/api/projects");
+    const data = await response.json();
+    setProjects(data);
+  };
+
+  const projectTabs = projects.map((projects) => (
+    <ProjectTabs
+      key={projects.projectName}
+      projectName={projects.projectName}
+    />
+  ));
+
+  useEffect(() => {
+    fetchAllProjects();
+    console.log("all projects fetched");
+  }, []);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -114,7 +134,7 @@ const SideNavBar = () => {
                 <Typography>Projects</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <ListItem
+                {/* <ListItem
                   disablePadding
                   onClick={() => {
                     nav("/Projects/forumapplication");
@@ -133,7 +153,8 @@ const SideNavBar = () => {
                   <ListItemButton>
                     <ListItemText primary={"Fitness Tracker"} />
                   </ListItemButton>
-                </ListItem>
+                </ListItem> */}
+                {projectTabs}
               </AccordionDetails>
             </Accordion>
 
