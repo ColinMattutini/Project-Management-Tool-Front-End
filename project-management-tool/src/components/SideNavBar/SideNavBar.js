@@ -17,6 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
 
 const drawerWidth = 180;
 
@@ -25,96 +26,108 @@ const SideNavBar = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="permanent"
-        anchor="left"
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        <Toolbar />
-        <Divider />
-        <List>
-          {/* {["Fitness App", "Forum App"].map((text, index) => ( */}
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => {
-                nav("/");
-              }}
-            >
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Home"} />
-            </ListItemButton>
-          </ListItem>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Project Management Dashboard
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ display: "flex" }}>
+        <Drawer
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          variant="permanent"
+          anchor="left"
+        >
+          <Toolbar />
           <Divider />
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => {
-                nav("/usertasks");
-              }}
-            >
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary={"My Tasks"} />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => {
-                nav("/members");
-              }}
-            >
-              <ListItemIcon>
-                <EmojiPeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Members"} />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>Projects</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <ListItem
-                disablePadding
+          <List>
+            {/* {["Fitness App", "Forum App"].map((text, index) => ( */}
+            <ListItem disablePadding>
+              <ListItemButton
                 onClick={() => {
-                  nav("/Projects/forumapplication");
+                  nav("/");
                 }}
               >
-                <ListItemButton>
-                  <ListItemText primary={"Forum Application"} />
-                </ListItemButton>
-              </ListItem>
-              <ListItem
-                disablePadding
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Home"} />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            <ListItem disablePadding>
+              <ListItemButton
                 onClick={() => {
-                  nav("/Projects/fitnesstracker");
+                  nav("/usertasks");
                 }}
               >
-                <ListItemButton>
-                  <ListItemText primary={"Fitness Tracker"} />
-                </ListItemButton>
-              </ListItem>
-            </AccordionDetails>
-          </Accordion>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary={"My Tasks"} />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  nav("/members");
+                }}
+              >
+                <ListItemIcon>
+                  <EmojiPeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Members"} />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>Projects</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <ListItem
+                  disablePadding
+                  onClick={() => {
+                    nav("/Projects/forumapplication");
+                  }}
+                >
+                  <ListItemButton>
+                    <ListItemText primary={"Forum Application"} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem
+                  disablePadding
+                  onClick={() => {
+                    nav("/Projects/fitnesstracker");
+                  }}
+                >
+                  <ListItemButton>
+                    <ListItemText primary={"Fitness Tracker"} />
+                  </ListItemButton>
+                </ListItem>
+              </AccordionDetails>
+            </Accordion>
 
-          {/* ))} */}
-        </List>
-      </Drawer>
+            {/* ))} */}
+          </List>
+        </Drawer>
+      </Box>
     </Box>
   );
 };
