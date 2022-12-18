@@ -18,6 +18,7 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
+import AddIcon from "@mui/icons-material/Add";
 
 const drawerWidth = 180;
 
@@ -52,7 +53,6 @@ const SideNavBar = () => {
           <Toolbar />
           <Divider />
           <List>
-            {/* {["Fitness App", "Forum App"].map((text, index) => ( */}
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => {
@@ -89,6 +89,19 @@ const SideNavBar = () => {
                   <EmojiPeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Members"} />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  nav("/newproject");
+                }}
+              >
+                <ListItemIcon>
+                  <AddIcon />
+                </ListItemIcon>
+                <ListItemText primary={"New Project"} />
               </ListItemButton>
             </ListItem>
             <Divider />
