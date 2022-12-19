@@ -11,9 +11,20 @@ const NewProjectForm = () => {
     setProjectName(e.target.value);
   };
 
+  const postProject = async () => {
+    const response = await fetch("http://localhost:8080/api/save/project", {
+      method: "POST",
+      body: JSON.stringify({
+        projectName: projectName,
+      }),
+      headers: { "content-type": "application/json" },
+    });
+  };
+
   const saveProject = (e) => {
     e.preventDefault();
     console.log(projectName);
+    postProject();
     nav("/Projects/" + projectName);
   };
 
