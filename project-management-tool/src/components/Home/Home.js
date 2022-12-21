@@ -1,13 +1,13 @@
 import classes from "./Home.module.css";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 
-const data = [
-  { name: "Backlog", value: 400 },
-  { name: "In-Progress", value: 300 },
-  { name: "Review", value: 300 },
-  { name: "Complete", value: 200 },
-];
+// const data = [
+//   { name: "Backlog", value: 400 },
+//   { name: "In-Progress", value: 300 },
+//   { name: "Review", value: 300 },
+//   { name: "Complete", value: 200 },
+// ];
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -84,12 +84,50 @@ const renderActiveShape = (props) => {
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [backlogTotal, setBacklogTotal] = useState(0);
+  const [inProgressTotal, setInProgressTotal] = useState(0);
+  const [reviewTotal, setReviewTotal] = useState(0);
+  const [completeTotal, setCompleteTotal] = useState(0);
   const onPieEnter = useCallback(
     (_, index) => {
       setActiveIndex(index);
     },
     [setActiveIndex]
   );
+
+  const fetchAllTasks = async () => {
+    const response = await fetch(
+      "http://localhost:8080/api/project/forumapplication/tasks",
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    for (const postKey in data) {
+      if (data[postKey].category === "COMPLETE") {
+        setCompleteTotal((completeTotal) => completeTotal + 1);
+      } else if (data[postKey].category === "REVIEW") {
+        setReviewTotal((reviewTotal) => reviewTotal + 1);
+      } else if (data[postKey].category === "INPROGRESS") {
+        setInProgressTotal((inProgressTotal) => inProgressTotal + 1);
+      } else if (data[postKey].category === "BACKLOG") {
+        setBacklogTotal((backlogTotal) => backlogTotal + 1);
+      }
+    }
+    console.log(backlogTotal, inProgressTotal, reviewTotal, completeTotal);
+    console.log(data);
+  };
+
+  const data = [
+    { name: "Backlog", value: backlogTotal },
+    { name: "In-Progress", value: inProgressTotal },
+    { name: "Review", value: reviewTotal },
+    { name: "Complete", value: completeTotal },
+  ];
+
+  useEffect(() => {
+    fetchAllTasks();
+  }, []);
 
   return (
     //Responsive container used so chart can change size
