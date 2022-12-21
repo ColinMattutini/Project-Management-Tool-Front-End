@@ -1,6 +1,12 @@
 .column {
   display: flex;
+  flex-direction: column;
   margin-left: 12%;
   padding-right: 8%;
   padding-top: 8%;
+}
+
+.column button {
+  width: 10%;
+  margin-left: auto;
 }
