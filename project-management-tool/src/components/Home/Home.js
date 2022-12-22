@@ -2,13 +2,7 @@ import classes from "./Home.module.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import DropdownOptions from "./DropdownOptions";
-
-// const data = [
-//   { name: "Backlog", value: 400 },
-//   { name: "In-Progress", value: 300 },
-//   { name: "Review", value: 300 },
-//   { name: "Complete", value: 200 },
-// ];
+import TotalTasks from "./TotalTasks";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -90,6 +84,7 @@ const Home = () => {
   const [reviewTotal, setReviewTotal] = useState(0);
   const [completeTotal, setCompleteTotal] = useState(0);
   const [projectName, setProjectName] = useState();
+  const [totalTasks, setTotalTasks] = useState(0);
 
   const onPieEnter = useCallback(
     (_, index) => {
@@ -106,6 +101,7 @@ const Home = () => {
       }
     );
     const data = await response.json();
+    setTotalTasks(Object.keys(data).length);
     for (const postKey in data) {
       if (data[postKey].category === "COMPLETE") {
         setCompleteTotal((completeTotal) => completeTotal + 1);
@@ -122,9 +118,17 @@ const Home = () => {
   };
 
   const projectNameHandler = (project) => {
+    resetTotals();
     setProjectName(project);
     console.log(project);
     fetchAllTasks(project);
+  };
+
+  const resetTotals = () => {
+    setCompleteTotal(0);
+    setReviewTotal(0);
+    setInProgressTotal(0);
+    setBacklogTotal(0);
   };
 
   const data = [
@@ -133,10 +137,6 @@ const Home = () => {
     { name: "Review", value: reviewTotal },
     { name: "Complete", value: completeTotal },
   ];
-
-  // useEffect(() => {
-  //   // fetchAllTasks();
-  // }, []);
 
   return (
     //Responsive container used so chart can change size
@@ -166,6 +166,7 @@ const Home = () => {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
+        <TotalTasks totalTasks={totalTasks} />
       </div>
     </div>
   );
