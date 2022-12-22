@@ -31,6 +31,13 @@ const SideNavBar = () => {
     const response = await fetch("http://localhost:8080/api/projects");
     const data = await response.json();
     setProjects(data);
+    const loadedProjects = [];
+    for (const projectKey in data) {
+      loadedProjects.push({
+        projectName: data[projectKey].projectName,
+      });
+    }
+    localStorage.setItem("projects", JSON.stringify(loadedProjects));
   };
 
   const projectTabs = projects.map((projects) => (
