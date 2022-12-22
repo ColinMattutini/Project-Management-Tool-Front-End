@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 const projects = JSON.parse(localStorage.getItem("projects"));
 
 const DropdownOptions = (props) => {
-  const [project, setProject] = useState();
+  const [project, setProject] = useState(projects[0].projectName);
 
   const logger = () => {
     console.log(project);
@@ -37,7 +37,6 @@ const DropdownOptions = (props) => {
           </MenuItem>
         ))}
       </TextField>
-      <button onClick={logger}></button>
     </div>
   );
 };
