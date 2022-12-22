@@ -1,6 +1,7 @@
 import classes from "./Home.module.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import DropdownOptions from "./DropdownOptions";
 
 // const data = [
 //   { name: "Backlog", value: 400 },
@@ -88,6 +89,8 @@ const Home = () => {
   const [inProgressTotal, setInProgressTotal] = useState(0);
   const [reviewTotal, setReviewTotal] = useState(0);
   const [completeTotal, setCompleteTotal] = useState(0);
+  const [projectName, setProjectName] = useState();
+
   const onPieEnter = useCallback(
     (_, index) => {
       setActiveIndex(index);
@@ -95,9 +98,9 @@ const Home = () => {
     [setActiveIndex]
   );
 
-  const fetchAllTasks = async () => {
+  const fetchAllTasks = async (project) => {
     const response = await fetch(
-      "http://localhost:8080/api/project/forumapplication/tasks",
+      "http://localhost:8080/api/project/" + project + "/tasks",
       {
         method: "GET",
       }
@@ -118,6 +121,12 @@ const Home = () => {
     console.log(data);
   };
 
+  const projectNameHandler = (project) => {
+    setProjectName(project);
+    console.log(project);
+    fetchAllTasks(project);
+  };
+
   const data = [
     { name: "Backlog", value: backlogTotal },
     { name: "In-Progress", value: inProgressTotal },
@@ -125,14 +134,15 @@ const Home = () => {
     { name: "Complete", value: completeTotal },
   ];
 
-  useEffect(() => {
-    fetchAllTasks();
-  }, []);
+  // useEffect(() => {
+  //   // fetchAllTasks();
+  // }, []);
 
   return (
     //Responsive container used so chart can change size
     <div className={classes.column}>
       <div className={classes.column2}>
+        <DropdownOptions projectNameHandler={projectNameHandler} />
         <ResponsiveContainer>
           <PieChart width={100} height={100}>
             <Pie
