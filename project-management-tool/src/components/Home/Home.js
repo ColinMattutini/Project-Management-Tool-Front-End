@@ -142,7 +142,9 @@ const Home = () => {
     //Responsive container used so chart can change size
     <div className={classes.column}>
       <div className={classes.column2}>
-        <DropdownOptions projectNameHandler={projectNameHandler} />
+        <div className={classes.dropdown}>
+          <DropdownOptions projectNameHandler={projectNameHandler} />
+        </div>
         <ResponsiveContainer>
           <PieChart width={100} height={100}>
             <Pie
@@ -166,7 +168,9 @@ const Home = () => {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
-        <TotalTasks totalTasks={totalTasks} />
+        <div className={classes.totalTasks}>
+          <TotalTasks totalTasks={totalTasks} />
+        </div>
       </div>
     </div>
   );
