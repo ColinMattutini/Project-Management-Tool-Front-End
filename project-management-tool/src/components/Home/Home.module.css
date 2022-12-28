@@ -1,8 +1,7 @@
 .column {
   display: flex;
-  margin-left: 12%;
-  padding-right: 8%;
-  padding-top: 20%;
+  margin-left: 60%;
+  padding-top: 8%;
 }
 
 .column2 {
@@ -14,7 +13,6 @@
 
 .totalTasks {
   text-align: center;
-  padding-right: 29%;
 }
 
 .dropdown {

@@ -145,7 +145,7 @@ const Home = () => {
         <div className={classes.dropdown}>
           <DropdownOptions projectNameHandler={projectNameHandler} />
         </div>
-        <ResponsiveContainer>
+        <ResponsiveContainer height={450}>
           <PieChart width={100} height={100}>
             <Pie
               activeIndex={activeIndex}
@@ -153,8 +153,8 @@ const Home = () => {
               data={data}
               cx={400}
               cy={200}
-              innerRadius={100}
-              outerRadius={120}
+              innerRadius={140}
+              outerRadius={160}
               fill="#8884d8"
               dataKey="value"
               onMouseEnter={onPieEnter}
