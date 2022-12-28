@@ -16,7 +16,6 @@ const ProjectDashboard = () => {
   const pathName = window.location.pathname.split("/").pop();
 
   const fetchAllTasks = async () => {
-    console.log(pathName);
     const response = await fetch(
       "http://localhost:8080/api/project/" + pathName + "/tasks",
       {
