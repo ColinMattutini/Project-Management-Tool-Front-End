@@ -20,6 +20,8 @@ import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import AddIcon from "@mui/icons-material/Add";
 import ProjectTabs from "./ProjectTabs";
+import { Button } from "@mui/material";
+import classes from "./SideNavBar.module.css";
 
 const drawerWidth = 180;
 
@@ -62,6 +64,11 @@ const SideNavBar = () => {
           <Typography variant="h6" noWrap component="div">
             Project Management Dashboard
           </Typography>
+          <div className={classes.button}>
+            <Button variant="contained" color="success">
+              LogIn
+            </Button>
+          </div>
         </Toolbar>
       </AppBar>
       <Box sx={{ display: "flex" }}>
