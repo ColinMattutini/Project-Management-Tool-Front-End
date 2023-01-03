@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
@@ -22,12 +22,14 @@ import AddIcon from "@mui/icons-material/Add";
 import ProjectTabs from "./ProjectTabs";
 import { Button } from "@mui/material";
 import classes from "./SideNavBar.module.css";
+import LoginModal from "../Login/LoginModal";
 
 const drawerWidth = 180;
 
 const SideNavBar = () => {
   const nav = useNavigate();
   const [projects, setProjects] = useState([]);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const fetchAllProjects = async () => {
     const response = await fetch("http://localhost:8080/api/projects");
@@ -49,134 +51,126 @@ const SideNavBar = () => {
     />
   ));
 
+  const loginModalHandler = () => {
+    showLoginModal ? setShowLoginModal(false) : setShowLoginModal(true);
+  };
+
   useEffect(() => {
     fetchAllProjects();
     console.log("all projects fetched");
   }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar
-        position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-      >
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Project Management Dashboard
-          </Typography>
-          <div className={classes.button}>
-            <Button variant="contained" color="success">
-              LogIn
-            </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
+    <Fragment>
+      {showLoginModal && <LoginModal loginModalHandler={loginModalHandler} />}
       <Box sx={{ display: "flex" }}>
-        <Drawer
+        <AppBar
+          position="fixed"
           sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
+            width: `calc(100% - ${drawerWidth}px)`,
+            ml: `${drawerWidth}px`,
           }}
-          variant="permanent"
-          anchor="left"
         >
-          <Toolbar />
-          <Divider />
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  nav("/");
-                }}
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div">
+              Project Management Dashboard
+            </Typography>
+            <div className={classes.button}>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={loginModalHandler}
               >
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Home"} />
-              </ListItemButton>
-            </ListItem>
+                LogIn
+              </Button>
+            </div>
+          </Toolbar>
+        </AppBar>
+        <Box sx={{ display: "flex" }}>
+          <Drawer
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              "& .MuiDrawer-paper": {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+            variant="permanent"
+            anchor="left"
+          >
+            <Toolbar />
             <Divider />
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  nav("/usertasks");
-                }}
-              >
-                <ListItemIcon>
-                  <AssignmentIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Tasks"} />
-              </ListItemButton>
-            </ListItem>
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  nav("/members");
-                }}
-              >
-                <ListItemIcon>
-                  <EmojiPeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Members"} />
-              </ListItemButton>
-            </ListItem>
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  nav("/newproject");
-                }}
-              >
-                <ListItemIcon>
-                  <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary={"New Project"} />
-              </ListItemButton>
-            </ListItem>
-            <Divider />
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>Projects</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                {/* <ListItem
-                  disablePadding
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton
                   onClick={() => {
-                    nav("/Projects/forumapplication");
+                    nav("/");
                   }}
                 >
-                  <ListItemButton>
-                    <ListItemText primary={"Forum Application"} />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem
-                  disablePadding
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Home"} />
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+              <ListItem disablePadding>
+                <ListItemButton
                   onClick={() => {
-                    nav("/Projects/fitnesstracker");
+                    nav("/usertasks");
                   }}
                 >
-                  <ListItemButton>
-                    <ListItemText primary={"Fitness Tracker"} />
-                  </ListItemButton>
-                </ListItem> */}
-                {projectTabs}
-              </AccordionDetails>
-            </Accordion>
+                  <ListItemIcon>
+                    <AssignmentIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"My Tasks"} />
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    nav("/members");
+                  }}
+                >
+                  <ListItemIcon>
+                    <EmojiPeopleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Members"} />
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    nav("/newproject");
+                  }}
+                >
+                  <ListItemIcon>
+                    <AddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"New Project"} />
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Projects</Typography>
+                </AccordionSummary>
+                <AccordionDetails>{projectTabs}</AccordionDetails>
+              </Accordion>
 
-            {/* ))} */}
-          </List>
-        </Drawer>
+              {/* ))} */}
+            </List>
+          </Drawer>
+        </Box>
       </Box>
-    </Box>
+    </Fragment>
   );
 };
 
