@@ -22,6 +22,23 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  const loginHandler = async () => {
+    const response = await fetch("http://localhost:8080/api/login", {
+      method: "POST",
+      body: JSON.stringify({
+        username: email,
+        password: password,
+      }),
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+    });
+  };
+
+  const formSubmissionHandler = (e) => {
+    e.preventDefault();
+    loginHandler();
+    console.log("Login submitted!");
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -60,7 +77,12 @@ const LoginForm = () => {
               type="password"
               onChange={passwordHandler}
             />
-            <Button type="submit" fullWidth variant="contained">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick={formSubmissionHandler}
+            >
               Sign In
             </Button>
           </Box>
