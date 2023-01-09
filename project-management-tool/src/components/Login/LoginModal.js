@@ -6,7 +6,7 @@ const LoginModal = (props) => {
   return (
     <Modal>
       <button onClick={props.loginModalHandler}>X</button>
-      <LoginForm />
+      <LoginForm loginModalHandler={props.loginModalHandler} />
     </Modal>
   );
 };

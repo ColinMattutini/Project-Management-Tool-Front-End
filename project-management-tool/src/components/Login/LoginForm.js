@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const theme = createTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +31,11 @@ const LoginForm = () => {
       }),
       headers: { "content-type": "application/x-www-form-urlencoded" },
     });
+    if (!response.ok) {
+      console.log("Error in logging in.");
+    } else {
+      props.loginModalHandler();
+    }
   };
 
   const formSubmissionHandler = (e) => {
