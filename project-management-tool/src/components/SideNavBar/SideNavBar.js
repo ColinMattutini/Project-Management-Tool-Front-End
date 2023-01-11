@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
@@ -23,6 +23,7 @@ import ProjectTabs from "./ProjectTabs";
 import { Button } from "@mui/material";
 import classes from "./SideNavBar.module.css";
 import LoginModal from "../Login/LoginModal";
+import AuthContext from "../../context/AuthContext";
 
 const drawerWidth = 180;
 
@@ -30,6 +31,8 @@ const SideNavBar = () => {
   const nav = useNavigate();
   const [projects, setProjects] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const fetchAllProjects = async () => {
     const response = await fetch("http://localhost:8080/api/projects");
@@ -76,13 +79,15 @@ const SideNavBar = () => {
               Project Management Dashboard
             </Typography>
             <div className={classes.button}>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={loginModalHandler}
-              >
-                LogIn
-              </Button>
+              {!authCtx.isLoggedIn && (
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={loginModalHandler}
+                >
+                  LogIn
+                </Button>
+              )}
             </div>
           </Toolbar>
         </AppBar>
